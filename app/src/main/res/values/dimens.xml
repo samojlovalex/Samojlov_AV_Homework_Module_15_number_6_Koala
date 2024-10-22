@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_width">0dp</dimen>
+    <dimen name="minHeight">48dp</dimen>
+
+    <dimen name="frame_radius">20dp</dimen>
+    <dimen name="frame_width">2dp</dimen>
+
+    <dimen name="margin_CardVieW">8dp</dimen>
+    <dimen name="cardCornerRadius">6dp</dimen>
+    <dimen name="cardElevation">6dp</dimen>
+
+    <dimen name="startFragment_NameTextSize">25sp</dimen>
+    <dimen name="startFragment_InfoTextSize">20sp</dimen>
+    <dimen name="startFragment_InfoMargin">10dp</dimen>
+    <dimen name="startFragment_PaddingButton">8dp</dimen>
+    <dimen name="startFragment_MarginTop">16dp</dimen>
+
+    <dimen name="activityWeather_CityTextSie">25sp</dimen>
+    <dimen name="activityWeather_WeatherImageSize">150dp</dimen>
+    <dimen name="activityWeather_LocationImageSize">50dp</dimen>
+    <dimen name="activityWeather_WeatherImageMargin">20dp</dimen>
+
+    <dimen name="Layout_TitleTextSize">20sp</dimen>
+    <dimen name="Layout_TextSize">13sp</dimen>
+</resources>

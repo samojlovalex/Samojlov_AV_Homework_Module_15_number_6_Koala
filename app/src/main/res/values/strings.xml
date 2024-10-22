@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Samojlov_AV_Homework_Module_15_number_6_Koala</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="startNameTextViewTV_Text">Прогноз погоды</string>
+    <string name="startInfoTextViewTV">Информация</string>
+    <string name="startButtonBT_Text">Начать</string>
+    <string name="toolbar_title">Погода</string>
+    <string name="toolbar_subtitle">Mod. 15 № 6</string>
+    <string name="exit">Exit</string>
+    <string name="toast_exit">Приложение закрыто</string>
+    <string name="temperature_text">t ℃</string>
+    <string name="TemperatureGeneralTitle_Text">Температура</string>
+    <string name="apiKey">40b5053429fb6fc66c983f39bf05ca21</string>
+    <string name="feelsTitle_Text">ощущается</string>
+    <string name="temperatureMinTitle_Text">min</string>
+    <string name="temperatureMaxTitle_Text">max</string>
+    <string name="city_Hint">Город</string>
+    <string name="windSpeedTitle_Text">Скорость ветра</string>
+    <string name="windSpeed_Text">м/с</string>
+    <string name="windGustTitle_Text">порывы ветра</string>
+    <string name="visibilityTitle_Text">Видимость</string>
+    <string name="visibility_Text">м</string>
+    <string name="pressureTitle_Text">Атмосферное давление</string>
+    <string name="pressure_Text">кПа</string>
+    <string name="humidityTitle_Text">Относительная влажность</string>
+    <string name="humidity_Text">%</string>
+    <string name="cloudsTitle_Text">Облачность</string>
+    <string name="cityUpdateET_Hint">Город</string>
+    <string name="latitudeET_Hint">Широта</string>
+    <string name="longitude_Hint">Долгота</string>
+    <string name="setLocationTitleAlertDialog">Укажите координаты требуемой локации</string>
+    <string name="setCityTitleAlertDialog">Укажите город</string>
+    <string name="AlertDialogPositiveButtonText">Принять</string>
+    <string name="AlertDialogNegativeButtonText">Отмена</string>
+    <string name="app_error_Toast">app error %1$s</string>
+    <string name="http_error_Toast">http error %1$s</string>
+    <string name="startCityLoad">Москва</string>
+    <string name="metricUnits">metric</string>
+    <string name="lang_RU">ru</string>
+</resources>
