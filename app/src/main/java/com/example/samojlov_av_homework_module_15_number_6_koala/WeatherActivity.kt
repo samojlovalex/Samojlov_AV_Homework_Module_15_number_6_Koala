@@ -1,6 +1,9 @@
 package com.example.samojlov_av_homework_module_15_number_6_koala
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,13 +13,17 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.samojlov_av_homework_module_15_number_6_koala.databinding.ActivityWeatherBinding
 import com.example.samojlov_av_homework_module_15_number_6_koala.models.weather.CurrentWeather
 import com.example.samojlov_av_homework_module_15_number_6_koala.utils.RetrofitInstance
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +60,8 @@ class WeatherActivity : AppCompatActivity() {
     private lateinit var containerHumidityLL: LinearLayout
     private lateinit var humidityTV: TextView
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -66,7 +75,30 @@ class WeatherActivity : AppCompatActivity() {
             insets
         }
         init()
+        locationRequest()
     }
+
+    private fun locationRequest() {
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    // Precise location access granted.
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    // Only approximate location access granted.
+                } else -> {
+                // No location access granted.
+            }
+            }
+        }
+
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION))
+    }
+
 
     private fun init() {
 
@@ -107,26 +139,51 @@ class WeatherActivity : AppCompatActivity() {
         }
 
         getCurrentWeather("", "", getString(R.string.startCityLoad))
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     private fun setLocation() {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.layoutInflater
-        val dialogValues = inflater.inflate(R.layout.location_update, null)
-        dialogBuilder.setView(dialogValues)
-        dialogBuilder.setTitle(getString(R.string.setLocationTitleAlertDialog))
 
-        val latitudeET = dialogValues.findViewById<EditText>(R.id.latitudeET)
-        val longitudeET = dialogValues.findViewById<EditText>(R.id.longitudeET)
-
-        dialogBuilder.setPositiveButton(getString(R.string.AlertDialogPositiveButtonText)) { _, _ ->
-            val setLatitudeET = latitudeET.text.toString().trim()
-            val setLongitudeET = longitudeET.text.toString().trim()
-            getCurrentWeather(setLatitudeET, setLongitudeET, "")
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
         }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location : Location? ->
+                getCurrentWeather(location?.latitude.toString(), location?.longitude.toString(), "")
+            }
 
-        dialogBuilder.setNegativeButton(getString(R.string.AlertDialogNegativeButtonText), null)
-        dialogBuilder.create().show()
+//        val dialogBuilder = AlertDialog.Builder(this)
+//        val inflater = this.layoutInflater
+//        val dialogValues = inflater.inflate(R.layout.location_update, null)
+//        dialogBuilder.setView(dialogValues)
+//        dialogBuilder.setTitle(getString(R.string.setLocationTitleAlertDialog))
+//
+//        val latitudeET = dialogValues.findViewById<EditText>(R.id.latitudeET)
+//        val longitudeET = dialogValues.findViewById<EditText>(R.id.longitudeET)
+//
+//        dialogBuilder.setPositiveButton(getString(R.string.AlertDialogPositiveButtonText)) { _, _ ->
+//            val setLatitudeET = latitudeET.text.toString().trim()
+//            val setLongitudeET = longitudeET.text.toString().trim()
+//            getCurrentWeather(setLatitudeET, setLongitudeET, "")
+//        }
+//
+//        dialogBuilder.setNegativeButton(getString(R.string.AlertDialogNegativeButtonText), null)
+//        dialogBuilder.create().show()
     }
 
     private fun setCity() {
